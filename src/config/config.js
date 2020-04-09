@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === 'dev') {
 };
 
 //Databse url
-process.env.urlDB = URLDB;
+process.env.URLDB = URLDB;
 
 //Vencimiento del token
 process.env.CADUCIDAD_TOKEN = '48h';
