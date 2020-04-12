@@ -20,6 +20,20 @@ const verifyAdminRole = (req, res, next) => {
     if(role === 'USER_ROLE') { 
         return res.status(404).json({ok:false, message:'Forbiden action!'});
     };
-}
+};
 
-module.exports = { tokenVerification, verifyAdminRole };
+
+//Token to validate Image requests
+imgTokenVerification = async (req, res, next) => {
+    const token = req.query.token;
+    try {
+        const decoded = await jwt.verify( token, process.env.SEED);
+        req.usuario = decoded.usuario; // Get the user from the payload encrypted by the token
+    } catch (error) {
+        return res.status(401).json({ok:false, message: error});
+    };
+    
+    next();
+};
+
+module.exports = { tokenVerification, verifyAdminRole, imgTokenVerification };
